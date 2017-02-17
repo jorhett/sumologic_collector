@@ -1,0 +1,38 @@
+<%- |
+  String $accessid,
+  String $accesskey,
+  String $collector_name = $facts['fadn'],
+  String $sources_path = '/usr/local/sumo/sumo.json',
+  Boolean $ephemeral = false,
+  Boolean $clobber = false,
+  Hash $proxy,
+    | -%>
+# Puppet manages this file, changes will be reverted
+accessid=<%= $accessid %>
+accesskey=<%= $accesskey %>
+name=<%= $collector_name %>
+syncsources=<%= $sources_path %>
+<%- if $ephemeral -%>
+ephemeral=<%= $ephemeral %>
+<%- end -%>
+<%- if $clobber -%>
+clobber=<%= $clobber %>
+<%- end -%>
+<%- if $proxy -%>
+# Proxy definition
+<%- if $proxy['host'] -%>
+proxyHost=<%= $proxy['host'] %>
+<%- end -%>
+<%- if $proxy['port'] -%>
+proxyPort=<%= $proxy['port'] %>
+<%- end -%>
+<%- if $proxy['user'] -%>
+proxyUser=<%= $proxy['user'] %>
+<%- end -%>
+<%- if $proxy['password'] -%>
+proxyPassword=<%= $proxy['password'] %>
+<%- end -%>
+<%- if $proxy['ntlmdomain'] -%>
+proxyNtlmdomain=<%= $proxy['ntlmdomain'] %>
+<%- end -%>
+<%- end -%>

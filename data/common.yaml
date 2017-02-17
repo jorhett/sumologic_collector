@@ -1,0 +1,5 @@
+---
+sumologic_collector::package_available: false
+sumologic_collector::download_url: "https://collectors.sumologic.com/rest/download/linux/%{::sumologic_collector::os_arch_bits}"
+sumologic_collector::service_name: 'collector'
+sumologic_collector::installation_path: '/opt/SumoCollector'

@@ -1,0 +1,35 @@
+<%- |
+      Hash    $sources,
+      Integer $sourcenum = 0,
+    | -%>
+<%# This is JSON format file
+{
+    "api.version": "v1",
+    "sources": [
+<% $sources.map |$name, $values| {
+     # if not the first rule, close previous block with a comma
+     unless $sourcenum == 0 { -%>
+        },
+<%   } # end if
+     $sourcenum += 1
+ -%>
+        {
+            "name": "<%= $name %>",
+            "sourceType": "<%= $values['sourceType'] %>",
+            "automaticDateParsing": <%= $values['automaticDateParsing'] %>,
+            "multilineProcessingEnabled": <%= $values['multilineProcessingEnabled'] %>,
+            "useAutolineMatching": <%= $values['useAutolineMatching'] %>,
+            "forceTimeZone": <%= $values['forceTimeZone'] %>,
+            "category": "<%= $values['category'] %>",
+<% if $values['sourceType'] == 'LocalFile' -%>
+            "pathExpression": "<%= $values['pathExpression'] %>",
+<% elsif $values['sourceType'] == 'DockerLog' -%>
+            "uri": "<%= $values['uri'] %>",
+            "allContainers": <%= $values['allContainers'] %>,
+            "collectEvents": <%= $values['collectEvents'] %>,
+<% end -%>
+            "timeZone": "UTC"
+<% } # end each -%>
+        }
+    ]
+}
