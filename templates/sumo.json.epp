@@ -2,17 +2,38 @@
       Hash    $sources,
       Integer $sourcenum = 0,
     | -%>
-<%# This is JSON format file
+<%# This is JSON format file -%>
 {
     "api.version": "v1",
     "sources": [
-<% $sources.map |$name, $values| {
-     # if not the first rule, close previous block with a comma
-     unless $sourcenum == 0 { -%>
+<% $sources.each |$name, $values| {
+    # if not the first rule, close previous block with a comma
+    unless $sourcenum == 0 { -%>
         },
-<%   } # end if
-     $sourcenum += 1
- -%>
+<%  }
+    $sourcenum += 1
+
+    # Check some values
+    if values['blacklist'] =~ Array[String] {
+      $blacklist = values['blacklist']
+    } else {
+      $blacklist = []
+    }
+    unless values['filters'] =~ Array[Hash] {
+      $filters = []
+    } else {
+      $filters = values['filters'].map |$filter| {
+@("END")
+                 {
+                   "filterType": "${filter['filterType']}",
+                   "name": "${filter['name']}",
+                   "regexp": "${filter['regexp']}",
+                   "mask": "${filter['mask']}"
+                 }
+END
+      }
+    }
+-%>
         {
             "name": "<%= $name %>",
             "sourceType": "<%= $values['sourceType'] %>",
@@ -21,15 +42,17 @@
             "useAutolineMatching": <%= $values['useAutolineMatching'] %>,
             "forceTimeZone": <%= $values['forceTimeZone'] %>,
             "category": "<%= $values['category'] %>",
-<% if $values['sourceType'] == 'LocalFile' -%>
+<% if $values['sourceType'] == 'LocalFile' { -%>
             "pathExpression": "<%= $values['pathExpression'] %>",
-<% elsif $values['sourceType'] == 'DockerLog' -%>
+		    "blacklist": <%= $blacklist %>,
+<% } elsif $values['sourceType'] == 'DockerLog' { -%>
             "uri": "<%= $values['uri'] %>",
             "allContainers": <%= $values['allContainers'] %>,
             "collectEvents": <%= $values['collectEvents'] %>,
-<% end -%>
-            "timeZone": "UTC"
-<% } # end each -%>
+<% } -%>
+            "filters": <%= $filters %>,
+            "timeZone": "<%= $values['timeZone'] %>",
+<% } #end sources.each -%>
         }
     ]
 }
