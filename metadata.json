@@ -7,39 +7,76 @@
   "source": "https://github.com/jorhett/puppet-sumologic_collector",
   "project_page": "https://github.com/jorhett/puppet-sumologic_collector",
   "issues_url": "https://github.com/jorhett/puppet-sumologic_collector/issues",
+  "dependencies": [
+    {
+      "name": "puppetlabs/stdlib",
+      "version_requirement": ">= 4.0.0 <= 5.0.0"
+    }
+  ],
+  "data_provider": "hiera",
   "operatingsystem_support": [
     {
-      "operatingsystem":"RedHat",
-      "operatingsystemrelease":[ "6","7" ]
+      "operatingsystem": "RedHat",
+      "operatingsystemrelease": [
+        "6",
+        "7"
+      ]
     },
     {
-      "operatingsystem":"CentOS",
-      "operatingsystemrelease":[ "6","7" ]
+      "operatingsystem": "CentOS",
+      "operatingsystemrelease": [
+        "6",
+        "7"
+      ]
     },
     {
-      "operatingsystem":"OracleLinux",
-      "operatingsystemrelease":[ "6","7" ]
+      "operatingsystem": "OracleLinux",
+      "operatingsystemrelease": [
+        "6",
+        "7"
+      ]
     },
     {
-      "operatingsystem":"Scientific",
-      "operatingsystemrelease":[ "6","7" ]
+      "operatingsystem": "Scientific",
+      "operatingsystemrelease": [
+        "6",
+        "7"
+      ]
     },
     {
-      "operatingsystem":"Debian",
-      "operatingsystemrelease":[ "6","7" ]
+      "operatingsystem": "Debian",
+      "operatingsystemrelease": [
+        "6",
+        "7"
+      ]
     },
     {
       "operatingsystem": "Ubuntu",
-      "operatingsystemrelease": [ "16.10", "16.04", "15.10", "15.04", "14.10", "14.04", "13.10", "13.04", "12.10", "12.04" ]
+      "operatingsystemrelease": [
+        "16.10",
+        "16.04",
+        "15.10",
+        "15.04",
+        "14.10",
+        "14.04",
+        "13.10",
+        "13.04",
+        "12.10",
+        "12.04"
+      ]
     }
   ],
   "requirements": [
-    { "name": "pe", "version_requirement": ">= 4.0.0 <= 5.0.0" },
-    { "name": "puppet", "version_requirement": ">= 4.9.0 <= 5.0.0" }
+    {
+      "name": "pe",
+      "version_requirement": ">= 4.0.0 <= 5.0.0"
+    },
+    {
+      "name": "puppet",
+      "version_requirement": ">= 4.9.0 <= 5.0.0"
+    }
   ],
-  "dependencies": [
-    { "name": "puppetlabs/stdlib", "version_requirement": ">= 4.0.0 <= 5.0.0" }
-  ],
-  "data_provider": "hiera"
+  "pdk-version": "1.4.1",
+  "template-url": "file:///opt/puppetlabs/pdk/share/cache/pdk-templates.git",
+  "template-ref": "1.4.1-0-g52adbbb"
 }
-
