@@ -1,28 +1,23 @@
 <%- |
-      Hash    $sources,
-      Integer $sourcenum = 0,
+      String $name,
+      Hash   $values,
     | -%>
 <%# This is JSON format file -%>
 {
     "api.version": "v1",
-    "sources": [
-<% $sources.each |$name, $values| {
-    # if not the first rule, close previous block with a comma
-    unless $sourcenum == 0 { -%>
-        },
-<%  }
-    $sourcenum += 1
+    "source": {
+<%-
 
     # Check some values
-    if values['blacklist'] =~ Array[String] {
-      $blacklist = values['blacklist']
+    if $values['blacklist'] =~ Array[String] {
+      $blacklist = $values['blacklist']
     } else {
       $blacklist = []
     }
-    unless values['filters'] =~ Array[Hash] {
+    unless $values['filters'] =~ Array[Hash] {
       $filters = []
     } else {
-      $filters = values['filters'].map |$filter| {
+      $filters = $values['filters'].map |$filter| {
 @("END")
                  {
                    "filterType": "${filter['filterType']}",
@@ -34,7 +29,6 @@ END
       }
     }
 -%>
-        {
             "name": "<%= $name %>",
             "sourceType": "<%= $values['sourceType'] %>",
             "automaticDateParsing": <%= $values['automaticDateParsing'] %>,
@@ -44,7 +38,7 @@ END
             "category": "<%= $values['category'] %>",
 <% if $values['sourceType'] == 'LocalFile' { -%>
             "pathExpression": "<%= $values['pathExpression'] %>",
-		    "blacklist": <%= $blacklist %>,
+            "blacklist": <%= $blacklist %>,
 <% } elsif $values['sourceType'] == 'DockerLog' { -%>
             "uri": "<%= $values['uri'] %>",
             "allContainers": <%= $values['allContainers'] %>,
@@ -52,7 +46,5 @@ END
 <% } -%>
             "filters": <%= $filters %>,
             "timeZone": "<%= $values['timeZone'] %>",
-<% } #end sources.each -%>
-        }
-    ]
+    }]
 }

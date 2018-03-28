@@ -1,0 +1,17 @@
+<%- |
+  String $accessid,
+  String $accesskey,
+  String $collector_name,
+  String $sources_path,
+  Hash $properties,
+    | -%>
+# Puppet manages this file, changes will be reverted
+accessid=<%= $accessid %>
+accesskey=<%= $accesskey %>
+name=<%= $collector_name %>
+syncSources=<%= $sources_path %>
+
+<%# Optional properties -%>
+<%- $properties.each |$name, $value| { -%>
+<%= $name %>=<%= $value %>
+<%- } -%>

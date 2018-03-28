@@ -16,6 +16,7 @@ default_facts = {
 
 default_facts_path = File.expand_path(File.join(File.dirname(__FILE__), 'default_facts.yml'))
 default_module_facts_path = File.expand_path(File.join(File.dirname(__FILE__), 'default_module_facts.yml'))
+hiera_yaml_path = File.expand_path(File.join(File.dirname(__FILE__), 'fixtures/hiera.yaml'))
 
 if File.exist?(default_facts_path) && File.readable?(default_facts_path)
   default_facts.merge!(YAML.safe_load(File.read(default_facts_path)))
@@ -27,4 +28,5 @@ end
 
 RSpec.configure do |c|
   c.default_facts = default_facts
+  c.hiera_config = hiera_yaml_path
 end

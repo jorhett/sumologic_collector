@@ -1,0 +1,4 @@
+{
+    "sumologic_collector::config::accessid": "12345",
+    "sumologic_collector::config::accesskey": "fa6e6e4"
+}

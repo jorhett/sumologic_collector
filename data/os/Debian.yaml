@@ -1,3 +1,2 @@
 ---
-sumologic_collector::package_available: true
-sumologic_collector::download_url: "https://collectors.sumologic.com/rest/download/deb/%{::sumologic_collector::os_arch_bits}"
+sumologic_collector::package::package_available: true

@@ -1,0 +1,12 @@
+---
+:backends:
+  - yaml
+  - json
+:yaml:
+  :datadir: data
+:json:
+  :datadir: spec/fixtures/hiera
+:hierarchy:
+  - 'keys'
+  - "os/%{::osfamily}"
+  - 'common'
