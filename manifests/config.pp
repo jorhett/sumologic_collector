@@ -21,6 +21,11 @@ class sumologic_collector::config(
 ) {
   require ::sumologic_collector::package
 
+  $sources_enable = empty($sources) ? {
+    true    => false,
+    default => true,
+  }
+
   file { '/opt/SumoCollector/config/user.properties':
     ensure  => file,
     owner   => 'root',
@@ -30,6 +35,7 @@ class sumologic_collector::config(
       collector_name => $collector_name,
       accessid       => $accessid,
       accesskey      => $accesskey,
+      sources_enable => $sources_enable,
       sources_path   => $sources_path,
       properties     => $properties,
     }),

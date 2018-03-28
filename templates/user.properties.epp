@@ -2,6 +2,7 @@
   String $accessid,
   String $accesskey,
   String $collector_name,
+  Boolean $sources_enable,
   String $sources_path,
   Hash $properties,
     | -%>
@@ -9,8 +10,9 @@
 accessid=<%= $accessid %>
 accesskey=<%= $accesskey %>
 name=<%= $collector_name %>
+<% if $sources_enable { -%>
 syncSources=<%= $sources_path %>
-
+<%- } -%>
 <%# Optional properties -%>
 <%- $properties.each |$name, $value| { -%>
 <%= $name %>=<%= $value %>
